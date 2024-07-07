@@ -13,6 +13,7 @@ public class Grid {
 
     public int Rows { get; private set; }
     public int Columns { get; private set; }
+    public Distances Distances { get; set; }
 
     private readonly Cell[,] _cells;
 
@@ -74,7 +75,7 @@ public class Grid {
                     cell = new Cell(-1, -1);
                 }
 
-                string body = "   ";
+                string body = $" {ContentsOf(cell)} ";
                 string eastBoundary = cell.IsLinked(cell.East) ? " " : "|";
 
                 top += body;
@@ -126,6 +127,22 @@ public class Grid {
         }
 
             return "";
+    }
+
+    public string ContentsOf(Cell cell) {
+        if (Distances != null && Distances[cell] != null) {
+            int value = Distances[cell].Value;
+            string content = value.ToString();
+            if (value >= 10) {
+                const string letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                // todo: Implement nearest 10
+                int index = value % 10;
+                content = letters[index].ToString();
+            }
+            return content;
+        }
+
+        return " ";
     }
 
     public override string ToString() {

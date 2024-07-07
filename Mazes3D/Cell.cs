@@ -20,6 +20,8 @@ public class Cell {
 
     private readonly List<Cell> _neighbors;
 
+    public IEnumerable<Cell> Links => _links.Keys;
+
     public Cell(int row, int column) {
         _neighbors = new List<Cell>();
         _links = new Dictionary<Cell, bool>();
@@ -53,5 +55,31 @@ public class Cell {
         if(_links.ContainsKey(cell) == false) return false;
 
         return _links[cell];
+    }
+
+    public Distances GetDistances() {
+        var distances = new Distances(this);
+        var frontier = new List<Cell> { this };
+
+        while (frontier.Count > 0) {
+
+            var newFrontier = new List<Cell>();
+
+            foreach (var cell in frontier) {
+                foreach (var link in cell._links.Keys) {
+                    if (distances[link] != null) {
+                        // Already visited.
+                        continue;
+                    }
+
+                    distances[link] = distances[cell] + 1;
+                    newFrontier.Add(link);
+                }
+            }
+
+            frontier = newFrontier;
+        }
+
+        return distances;
     }
 }
