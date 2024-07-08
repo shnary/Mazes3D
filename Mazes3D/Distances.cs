@@ -35,4 +35,22 @@ public class Distances {
         DistanceLookup = new Dictionary<Cell, int>();
         DistanceLookup.Add(cell, 0);
     }
+
+    public Distances PathTo(Cell goal) {
+        var current = goal;
+
+        var breadcrumbs = new Distances(Root);
+        breadcrumbs[current] = DistanceLookup[current];
+
+        while (current != Root) {
+            foreach (var neighbor in current.Links) {
+                if (DistanceLookup[neighbor] < DistanceLookup[current]) {
+                    breadcrumbs[neighbor] = DistanceLookup[neighbor];
+                    current = neighbor;
+                }
+            }
+        }
+
+        return breadcrumbs;
+    }
 }

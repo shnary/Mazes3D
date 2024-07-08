@@ -14,6 +14,15 @@ grid.Distances = distances;
 Console.WriteLine("Binary Tree");
 Console.WriteLine(grid);
 
+grid.Distances = distances.PathTo(grid[grid.Rows - 1, 0]);
+Console.WriteLine(grid);
+
+grid = new Grid(5, 5);
+AldousBroder.Run(grid);
+Console.WriteLine("Aldous-Broder");
+Console.WriteLine(grid);
+
+
 /*
 Console.WriteLine("Sidewinder");
 grid = new Grid(4, 4);
