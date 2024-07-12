@@ -129,6 +129,23 @@ public class Grid {
             return "";
     }
 
+    public List<Cell> GetDeadends() {
+        var list = new List<Cell>();
+
+
+        for (int i = 0; i < Rows; i++) {
+            for (int j = 0; j < Columns; j++) {
+                var cell = this[i, j];
+
+                if (cell.Links.Count() == 1) {
+                    list.Add(cell);
+                }
+            }
+        }
+
+        return list;
+    }
+
     public string ContentsOf(Cell cell) {
         if (Distances != null && Distances[cell] != null) {
             int value = Distances[cell].Value;

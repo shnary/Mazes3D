@@ -18,9 +18,10 @@ grid.Distances = distances.PathTo(grid[grid.Rows - 1, 0]);
 Console.WriteLine(grid);
 
 grid = new Grid(5, 5);
-AldousBroder.Run(grid);
+RecursiveBacktracker.Run(grid);
 Console.WriteLine("Aldous-Broder");
 Console.WriteLine(grid);
+Console.WriteLine(grid.GetDeadends().Count);
 
 
 /*
